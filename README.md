@@ -13,15 +13,19 @@ Technical Test
 
  Clone the repository:
    ```sh
-   git clone <repository_url>
-   cd <repository_name>
+   git clone https://github.com/FumbiFash/UrbanTide_Task.git
+   cd UrbanTide_Task
 
 
 
 ### Approach to the problem
 
+Note
+ I would typically create a virtual environment but I have chosen not to use a one for this project to keep the setup simpler.
+Although using a virtual environment would help in managing dependencies and avoiding conflicts, it was omitted here for simplicity. The correct versions for the dependencies are in the requirements.txt file. 
+
 1. Tools 
-- Had initially attempted building the application with Django in order to make use of Django REST Framework and its validation tools/api interface, but task description specified Flask so accomplished it following instructions instead
+- I Had initially attempted building the application with Django in order to make use of Django REST Framework and its validation tools/api interface, but task description specified Flask so accomplished it following instructions instead
 
 2. Flask app setup
    - set up flask app with endpoint for file upload handling

@@ -1,0 +1,16 @@
+version: '2'
+services:
+  postgres:
+    image: postgres:9.3
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5434:5432"
+  web:
+    build: .
+    ports:
+      - "5001:5000"
+    environment:
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/postgres
+    depends_on:
+      - postgres

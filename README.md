@@ -1,5 +1,5 @@
-# UrbanTide_Task
-Technical Test
+# CSV_TO_SQL
+
 
 
 ## Setup
@@ -9,66 +9,56 @@ Technical Test
 - Docker Compose
 - Python 3
 
-# Instruction
+This project is a pipeline that consumes data from a CSV file through a web API, infers the schema and data types, performs basic outlier detection, and inserts the data into an SQL database if no outliers are detected. The application is containerized using Docker.
 
- Clone the repository:
-   ```sh
-   git clone https://github.com/FumbiFash/UrbanTide_Task.git
-   cd UrbanTide_Task
+Features
 
+Accepts CSV file uploads via a RESTful web API.
 
+Infers the schema of the CSV and maps it to an SQL table.
 
-### Approach to the problem
+Performs basic outlier detection.
 
-Note
- I would typically create a virtual environment but I have chosen not to use a one for this project to keep the setup simpler.
-Although using a virtual environment would help in managing dependencies and avoiding conflicts, it was omitted here for simplicity. The correct versions for the dependencies are in the requirements.txt file. 
+Inserts data into an SQL database if no outliers are detected.
 
-1. Tools 
-- I Had initially attempted building the application with Django in order to make use of Django REST Framework and its validation tools/api interface, but task description specified Flask so accomplished it following instructions instead
+Application is then containerized for quick setup.
 
-2. Flask app setup
-   - set up flask app with endpoint for file upload handling
-   - configured sqlalchemy to connect to postgresql env using docker environment variables
+Tools Required
 
-3. csv upload
- - used pandas to read the uploaded csv into dataframes and created sql table from the csv schema
+Python: Main logic and API built using Flask.
 
-4. outlier detection
- - performed simple outlier detection using interquartile range to check outliers in the data
+PostgreSQL: SQL database for storing processed data.
 
-5 . Containerization
+Docker: Containerization for the application and database.
 
- - i wrote a dockerfile to containerize flask app, and then i used docker compose to run the flask app and postgresql together
+Docker Compose: Orchestration of created containers.
 
- 6. I accessed the API using Postman and used the test csv files to check which one passed and failed
+Getting Started
 
+Prerequisites
 
+The following required:
 
+Docker
 
-### Some problems I had
+Docker Compose
 
+CLone this repo: 
+git clone https://github.com/your-username/csv_to_sql.git
 
-1. Table already defined error
-  - error when i attemped to upload a new csv file for testing because table already existed in database. Error was from sqlalchemy which was thrown when multiple csv files were uploaded.
+Build and run Docker containers:
+docker-compose up --build
 
-Solution
-   - Modified the 'create_table_from_df' function to chech if table already existed before attempting to create it. Accomplished this by using 'inspect' module to query database for existing tables. If table alsready exists, then the function uses existing table for data insertion. 
+Use Postman to upload a CSV file to the API endpoint
 
-2. General error handling
-   Some errors suchas as the one above where the table was already defined were not so easy to find at first in my code so i used imported and used 'logging' for this. 
+Access the database using a PostgreSQL client to query the data.
 
-   Solution 
-    - Implemented logging to the application to capture and log error messages to help in troubleshooting 
- 
-3.  Port conflict
-  There was a port conflict on my host machine because the default PostgreSQL port 5432 and Flask port 5000 were being used already by other instances of postgresql and other web servers on my machine
-  Solution
-  -  changed the postgresql port to 5433 and flask port to 5001 in the docker-compose file 
+Host: localhost
 
-4.  compatibility issue with pandas and numpy causing error with the flask application. 
+Port: 5432
 
- compatibility issues between Flask, Werkzeug, Pandas, and Numpy also caused some headaches.
+Username: postgres
 
-Solution 
- - Updated the requirements.txt file to include compatible versions
+Password: postgres
+
+Database: postgres
